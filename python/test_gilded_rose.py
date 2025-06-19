@@ -39,7 +39,7 @@ class GildedRoseTest(unittest.TestCase):
         self.check_asserts(items, expects)
 
     def test_02_aged_brie(self):
-        name = "Aged Brie"
+        name = GildedRose.AGED_BRIE
         items = self.get_fixture_items(name)
         expects = [
             Item(name, -1, 2),
@@ -51,13 +51,13 @@ class GildedRoseTest(unittest.TestCase):
         ]
         self.check_asserts(items, expects)
 
-    def test_03_fulfuras_hand_of_ragnaros(self):
-        name = "Sulfuras, Hand of Ragnaros"
+    def test_03_sulfuras_hand_of_ragnaros(self):
+        name = GildedRose.SULFURAS_HAND_OF_RAGNAROS
         items = self.get_fixture_items(name)
         self.check_asserts(items, items)
 
-    def test_04_backstage_passes_to_a_tafkal(self):
-        name = "Backstage passes to a TAFKAL80ETC concert"
+    def test_04_backstage_passes_to_a_tafkal80etc_concert(self):
+        name = GildedRose.BACKSTAGE_PASSES_TO_A_TAFKAL80ETC_CONCERT
         items = self.get_fixture_items(name)
         expects = [
             Item(name, -1, 0),
