@@ -9,7 +9,7 @@ class GildedRoseTest(unittest.TestCase):
     def get_fixture_items(self, name):
         return [
             Item(name, 0, 0),
-            Item(name, -1, -1),
+            Item(name, -1, 10),
             Item(name, 5, 45),
             Item(name, 6, 45),
             Item(name, 7, 52),
@@ -30,7 +30,7 @@ class GildedRoseTest(unittest.TestCase):
         items = self.get_fixture_items(name)
         expects = [
             Item(name, -1, 0),
-            Item(name, -2, -1),
+            Item(name, -2, 8),
             Item(name, 4, 44),
             Item(name, 5, 44),
             Item(name, 6, 51),
@@ -43,7 +43,7 @@ class GildedRoseTest(unittest.TestCase):
         items = self.get_fixture_items(name)
         expects = [
             Item(name, -1, 2),
-            Item(name, -2, 1),
+            Item(name, -2, 12),
             Item(name, 4, 46),
             Item(name, 5, 46),
             Item(name, 6, 52),
