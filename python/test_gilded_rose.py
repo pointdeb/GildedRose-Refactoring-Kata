@@ -25,8 +25,8 @@ class GildedRoseTest(unittest.TestCase):
             self.assertEqual(item.quality, expects[i].quality)
             self.assertEqual(item.sell_in, expects[i].sell_in)
 
-    def test_01_custom_item(self):
-        name = "Custom"
+    def test_01_others_item(self):
+        name = "Others"
         items = self.get_fixture_items(name)
         expects = [
             Item(name, -1, 0),
