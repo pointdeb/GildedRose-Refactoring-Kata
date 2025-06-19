@@ -20,14 +20,11 @@ class GildedRose(object):
     def _update_age_brie(self, item):
         if item.name != self.AGED_BRIE:
             return
-        if item.quality < 50:
-            item.quality += 1
-
         item.sell_in -= 1
-        if item.sell_in < 0:
-            if item.name == self.AGED_BRIE:
-                if item.quality < 50:
-                    item.quality += 1
+        if item.quality < 50:
+            if item.sell_in < 0:
+                item.quality += 1
+            item.quality += 1
 
     def _update_backstage_passes_to_a_tafkal80etc_concert(self, item):
         if item.name != self.BACKSTAGE_PASSES_TO_A_TAFKAL80ETC_CONCERT:
@@ -49,10 +46,10 @@ class GildedRose(object):
             or item.name == self.BACKSTAGE_PASSES_TO_A_TAFKAL80ETC_CONCERT
         ):
             return
-        if item.quality > 0:
-            item.quality -= 1
         item.sell_in -= 1
-        if item.sell_in < 0 and item.quality > 0:
+        if item.quality > 0:
+            if item.sell_in < 0:
+                item.quality -= 1
             item.quality -= 1
 
 
