@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+
 class GildedRose(object):
     AGED_BRIE = "Aged Brie"
     SULFURAS_HAND_OF_RAGNAROS = "Sulfuras, Hand of Ragnaros"
@@ -12,28 +13,47 @@ class GildedRose(object):
         for item in self.items:
             if item.name == self.SULFURAS_HAND_OF_RAGNAROS:
                 continue
-            
-            if item.name != self.AGED_BRIE and item.name != self.BACKSTAGE_PASSES_TO_A_TAFKAL80ETC_CONCERT:
-                if item.quality > 0:
-                    item.quality = item.quality - 1
-            else:
+            self._update_age_brie(item)
+            self._update_backstage_passes_to_a_tafkal80etc_concert(item)
+            self._update_other(item)
+
+    def _update_age_brie(self, item):
+        if item.name != self.AGED_BRIE:
+            return
+        if item.quality < 50:
+            item.quality += 1
+
+        item.sell_in -= 1
+        if item.sell_in < 0:
+            if item.name == self.AGED_BRIE:
                 if item.quality < 50:
-                    item.quality = item.quality + 1
-                    if item.name == self.BACKSTAGE_PASSES_TO_A_TAFKAL80ETC_CONCERT:
-                        if item.sell_in < 11:
-                            item.quality = item.quality + 1
-                        if item.sell_in < 6:
-                            item.quality = item.quality + 1
-            
-            item.sell_in = item.sell_in - 1
-            if item.sell_in < 0:
-                if item.name == self.AGED_BRIE:
-                    if item.quality < 50:
-                        item.quality = item.quality + 1
-                elif item.name == self.BACKSTAGE_PASSES_TO_A_TAFKAL80ETC_CONCERT:
-                    item.quality = item.quality - item.quality
-                elif item.quality > 0:
-                    item.quality = item.quality - 1
+                    item.quality += 1
+
+    def _update_backstage_passes_to_a_tafkal80etc_concert(self, item):
+        if item.name != self.BACKSTAGE_PASSES_TO_A_TAFKAL80ETC_CONCERT:
+            return
+        if item.quality < 50:
+            item.quality += 1
+            if item.sell_in < 11:
+                item.quality += 1
+            if item.sell_in < 6:
+                item.quality += 1
+
+        item.sell_in -= 1
+        if item.sell_in < 0:
+            item.quality = item.quality - item.quality
+
+    def _update_other(self, item):
+        if (
+            item.name == self.AGED_BRIE
+            or item.name == self.BACKSTAGE_PASSES_TO_A_TAFKAL80ETC_CONCERT
+        ):
+            return
+        if item.quality > 0:
+            item.quality -= 1
+        item.sell_in -= 1
+        if item.sell_in < 0 and item.quality > 0:
+            item.quality -= 1
 
 
 class Item:
