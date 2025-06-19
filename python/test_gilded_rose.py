@@ -9,19 +9,19 @@ class GildedRoseTest(unittest.TestCase):
 
     def get_fixture_items(self, name):
         return [
-            Item(name, 9, 19),
-            Item(name, 1, 1),
-            Item(name, 4, 6),
-            Item(name, 0, 80),
-            Item(name, -1, 80),
-            Item(name, 14, 21),
-            Item(name, 9, 51),
-            Item(name, 4, 52),
-            Item(name, 2, 5),
-            Item(name, 8, 18),
-            Item(name, 8, 51),
-            Item(name, 3, 52),
-            Item(name, 1, 4),
+            Item.from_values(name, 9, 19),
+            Item.from_values(name, 1, 1),
+            Item.from_values(name, 4, 6),
+            Item.from_values(name, 0, 80),
+            Item.from_values(name, -1, 80),
+            Item.from_values(name, 14, 21),
+            Item.from_values(name, 9, 51),
+            Item.from_values(name, 4, 52),
+            Item.from_values(name, 2, 5),
+            Item.from_values(name, 8, 18),
+            Item.from_values(name, 8, 51),
+            Item.from_values(name, 3, 52),
+            Item.from_values(name, 1, 4),
         ]
 
     def _check_asserts(self, items, expects):
@@ -30,8 +30,8 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
         for i, item in enumerate(items):
-            self.assertEqual(expects[i].quality, item.quality, f"[{i}] {item}")
-            self.assertEqual(expects[i].sell_in, item.sell_in, f"[{i}] {item}")
+            self.assertEqual(expects[i].quality, item.quality, f"[{i}] {item} {expects[i]}")
+            self.assertEqual(expects[i].sell_in, item.sell_in, f"[{i}] {item} {expects[i]}")
 
     def _original_func(self, items):
         items = copy.deepcopy(items)
@@ -74,18 +74,18 @@ class GildedRoseTest(unittest.TestCase):
         self._check_asserts(items, expects)
         
     def test_02_aged_brie(self):
-        name = GildedRose.AGED_BRIE
+        name = Item.AGED_BRIE
         items = self.get_fixture_items(name)
         expects = self._original_func(items)
         self._check_asserts(items, expects)
 
     def test_03_sulfuras_hand_of_ragnaros(self):
-        name = GildedRose.SULFURAS_HAND_OF_RAGNAROS
+        name = Item.SULFURAS_HAND_OF_RAGNAROS
         items = self.get_fixture_items(name)
         self._check_asserts(items, items)
 
     def test_04_backstage_passes_to_a_tafkal80etc_concert(self):
-        name = GildedRose.BACKSTAGE_PASSES_TO_A_TAFKAL80ETC_CONCERT
+        name = Item.BACKSTAGE_PASSES_TO_A_TAFKAL80ETC_CONCERT
         items = self.get_fixture_items(name)
         expects = self._original_func(items)
         self._check_asserts(items, expects)
